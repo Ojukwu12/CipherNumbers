@@ -1,0 +1,14 @@
+{
+  "name": "ciphernumbers-frontend",
+  "description": "Frontend for CipherNumbers - FHE encrypted computation demo",
+  "builder": "node",
+  "buildCommand": "npm install && npm run build",
+  "startCommand": "npm run preview",
+  "envVars": [
+    {
+      "key": "VITE_API_URL",
+      "value": "https://ciphernumbers-backend.onrender.com"
+    }
+  ],
+  "staticSiteGenerator": "vite"
+}

@@ -1,0 +1,29 @@
+{
+  "name": "ciphernumbers-backend",
+  "description": "Backend for CipherNumbers - FHE encrypted computation demo",
+  "builder": "node",
+  "buildCommand": "npm install",
+  "startCommand": "npm start",
+  "envVars": [
+    {
+      "key": "NODE_ENV",
+      "value": "production"
+    },
+    {
+      "key": "PORT",
+      "value": "3001"
+    },
+    {
+      "key": "CORS_ORIGIN",
+      "value": "https://ciphernumbers.onrender.com"
+    },
+    {
+      "key": "ZAMA_RELAYER_URL",
+      "value": "https://api.zama.ai/fhevm"
+    },
+    {
+      "key": "ZAMA_NETWORK",
+      "value": "testnet"
+    }
+  ]
+}
