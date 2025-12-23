@@ -3,8 +3,8 @@
  * Handles all FHE operations
  */
 
-// Use empty string to leverage Vite's proxy configuration
-const API_BASE_URL = '';
+// Prefer deployed URL when available; fall back to same-origin/proxy in dev
+const API_BASE_URL = import.meta.env?.VITE_API_URL || '';
 
 /**
  * Generic fetch wrapper with error handling
@@ -25,11 +25,24 @@ const apiCall = async (endpoint, method = 'GET', data = null) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
     
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || `HTTP ${response.status}`);
+      // Try to parse structured error; fallback to text/html
+      let message;
+      try {
+        const error = await response.json();
+        message = error.message;
+      } catch (_) {
+        message = await response.text();
+      }
+      throw new Error(message || `HTTP ${response.status}`);
     }
 
-    return await response.json();
+    // Some hosts return HTML on errors; guard JSON parsing
+    try {
+      return await response.json();
+    } catch (parseErr) {
+      const bodyText = await response.text();
+      throw new Error(`Unexpected response format: ${bodyText?.slice(0, 200) || 'empty'}`);
+    }
   } catch (error) {
     console.error(`API Error: ${endpoint}`, error);
     throw error;
