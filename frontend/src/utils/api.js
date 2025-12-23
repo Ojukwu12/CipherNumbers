@@ -3,7 +3,8 @@
  * Handles all FHE operations
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+// Use empty string to leverage Vite's proxy configuration
+const API_BASE_URL = '';
 
 /**
  * Generic fetch wrapper with error handling

@@ -318,7 +318,12 @@ function App() {
       <Modal
         isOpen={showDecryptModal}
         title="Verify & Decrypt"
-        onClose={() => {}}
+        onClose={() => {
+          setShowDecryptModal(false)
+          setVerifySecret('')
+          setError(null)
+          handleReset()
+        }}
       >
         <p>
           To decrypt the result, re-enter your original secret number.
@@ -348,6 +353,19 @@ function App() {
               style={{ flex: 1 }}
             >
               Decrypt Result
+            </Button>
+            <Button 
+              type="button" 
+              variant="secondary"
+              style={{ flex: 1 }}
+              onClick={() => {
+                setShowDecryptModal(false)
+                setVerifySecret('')
+                setError(null)
+                handleReset()
+              }}
+            >
+              Cancel & Reset
             </Button>
           </div>
         </form>
